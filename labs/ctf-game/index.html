@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0f172a">
-  <title>Password Reset Whitespace Bug CTF Lab</title>
+  <title>Password Reset Whitespace Bug - Realistic CTF Simulation</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/ctf-icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
@@ -13,46 +13,58 @@
   <main class="app">
     <section class="hero">
       <div>
-        <p class="eyebrow">Bug Report CTF</p>
+        <p class="eyebrow">Realistic Bug Simulation</p>
         <h1>Password Reset Whitespace Bug</h1>
-        <p class="lede">A password reset flow accepts a password with leading whitespace, but login later rejects or normalizes it differently, locking the user out.</p>
+        <p class="lede">Use the reset form to set a password with a leading space, then try to log in with the same password.</p>
       </div>
-      <div class="terminal" aria-label="Mock lab terminal">
+      <div class="terminal">
         <div class="bar"><span></span><span></span><span></span></div>
-        <pre><code id="terminal-code">loading mock scenario...</code></pre>
-        <div class="scan"></div>
+        <pre><code id="event-log">Lab booted. Interact with the mock app to find the bug.</code></pre>
       </div>
     </section>
 
     <section class="hud">
-      <div><span>Score</span><strong id="score">0</strong></div>
-      <div><span>Lives</span><strong id="lives">3</strong></div>
-      <div><span>Mission</span><strong><span id="mission">1</span>/3</strong></div>
       <div><span>Severity</span><strong>Medium</strong></div>
+      <div><span>Mode</span><strong>Mock App</strong></div>
+      <div><span>Status</span><strong id="status">Hunting</strong></div>
+      <div><span>Flag</span><strong id="flag-state">Locked</strong></div>
     </section>
 
     <section class="layout">
       <article class="card">
-        <p id="type" class="pill">Authentication / Input Consistency</p>
-        <h2 id="question">Question</h2>
-        <pre class="snippet"><code id="snippet"></code></pre>
-        <div id="choices" class="choices"></div>
-        <div class="actions">
-          <button id="hint" class="ghost" type="button">Hint</button>
-          <button id="next" class="primary" type="button" disabled>Next</button>
+        <div class="card-head">
+          <p class="pill">Goal</p>
+          <h2>Trigger the lockout caused by inconsistent whitespace handling.</h2>
+          <p class="muted">Everything here is local mock data. No real target is contacted.</p>
         </div>
-        <p id="feedback" class="feedback" aria-live="polite"></p>
+        <div id="lab-root"></div>
       </article>
 
       <aside class="card intel">
         <h2>Analyst Notes</h2>
-        <p><strong>Expected:</strong> Password creation and login should handle whitespace consistently, either preserving it exactly or rejecting it clearly at creation time.</p>
-        <p><strong>Actual:</strong> The reset flow and login flow appear to normalize or store whitespace differently.</p>
-        <p>Complete the missions to reveal the flag.</p>
+        <p><strong>Expected:</strong> Password reset and login should treat whitespace consistently.</p>
+        <p><strong>Actual:</strong> The reset flow stores the leading space, but the login flow trims the submitted password before comparison.</p>
+        <p class="muted">When you reproduce the vulnerable behavior, the flag unlocks.</p>
         <div id="flag" class="flag hidden"></div>
       </aside>
     </section>
   </main>
+  <script>
+    window.CTF_SCENARIO = {
+  "slug": "password-reset-whitespace-bug",
+  "title": "Password Reset Whitespace Bug",
+  "kind": "passwordWhitespace",
+  "severity": "Medium",
+  "flag": "FLAG{PASSWORD_INPUT_MUST_BE_HANDLED_CONSISTENTLY}",
+  "brief": "Use the reset form to set a password with a leading space, then try to log in with the same password.",
+  "goal": "Trigger the lockout caused by inconsistent whitespace handling.",
+  "expected": "Password reset and login should treat whitespace consistently.",
+  "actual": "The reset flow stores the leading space, but the login flow trims the submitted password before comparison.",
+  "seed": {
+    "password": " password123"
+  }
+};
+  </script>
   <script src="app.js"></script>
 </body>
 </html>

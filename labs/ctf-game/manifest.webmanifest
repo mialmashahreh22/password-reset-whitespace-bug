@@ -1,7 +1,7 @@
 {
-  "name": "Password Reset Whitespace Bug CTF",
+  "name": "Password Reset Whitespace Bug Simulation",
   "short_name": "password-res",
-  "description": "CTF lab for Password Reset Whitespace Bug",
+  "description": "Realistic CTF simulation for Password Reset Whitespace Bug",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#070b16",
